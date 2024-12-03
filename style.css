@@ -124,3 +124,9 @@ body {
 .heading h1{
     font-size: 62px;
 }
+
+.result{
+    display: none;
+    color: white;
+    font-size: 48px;
+}
