@@ -20,6 +20,7 @@ let timer = 60;
 let imgStoreArry = [];
 let tempArry = [];
 let match = 0;
+let attempts = 0;
 addImage();
 startTime();
 
@@ -45,10 +46,15 @@ flipCard.forEach((suffle) => {
         imgStoreArry.push(suffle.children[0].children[1].children[0])
 
         if (countImg === 2) {
+            attempts++;
+            showCount.innerHTML = `Attempts: ${attempts} | Matches: ${match}`;
+
+
             if (imgStoreArry[0].src === imgStoreArry[1].src) {
                 imgStoreArry.length = 0;
                 countImg = 0;
                 match++
+                showCount.innerHTML = `Attempts: ${attempts} | Matches: ${match}`;
             }
             else {
                 setTimeout(() => {
@@ -57,7 +63,7 @@ flipCard.forEach((suffle) => {
                     });
                     imgStoreArry.length = 0
                     countImg = 0
-                },1000)
+                }, 1000)
             }
         }
     })
@@ -76,15 +82,15 @@ function randomvalue() {
 
 
 
-function startTime(){
-    let interval = setInterval(()=>{
+function startTime() {
+    let interval = setInterval(() => {
         showTime.innerHTML = --timer;
-        if(timer === 0){
+        if (timer === 0) {
             main_box.style.display = "none";
             result.style.display = "block"
             clearInterval(interval);
         }
-    },1000)
+    }, 1000)
 }
 
 
