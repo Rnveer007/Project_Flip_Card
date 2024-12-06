@@ -37,15 +37,15 @@ body {
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    width: 40%; 
+    width: 30%; 
     display: none;
 }
 
 
 .flip-card {
     background-color: transparent;
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     perspective: 1000px;
     margin: 0.5rem;
 }
@@ -88,8 +88,8 @@ body {
     background-color: #2980b9;
     color: white;
     transform: rotateY(180deg);
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
 }
 
 .flip-card-back img{
@@ -107,7 +107,7 @@ body {
 #time{
     position: absolute;
     top: 25%;
-    left: 20%;
+    left: 22%;
     font-size: 30px;
     color: #fff;
     text-shadow: 2px 2px red;
@@ -131,7 +131,15 @@ body {
     font-size: 48px;
 }
 
-.showCount{
-    color: white;
-    font-size: 48px;
+.showGameResult{
+    display: none;
 }
+
+.showCount{
+    position: absolute;
+    top: 35%;
+    left: 22%;
+    font-size: 26px;
+    color: #fff;
+    text-shadow: 2px 2px red;
+};

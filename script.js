@@ -1,11 +1,11 @@
 let main_box = document.querySelector(".container");
-let game_btn = document.querySelector(".start_btn");
+let gameBtn = document.querySelector(".start_btn");
 let card_back = document.querySelectorAll(".flip-card-back");
-let card_front = document.querySelectorAll(".flip-card-front img");
-let showTime = document.getElementById("dicrTime");
 let flipCard = document.querySelectorAll(".flip-card");
+let showTime = document.getElementById("dicrTime");
+let showCount = document.querySelector(".showCount")
+let showGameResult = document.querySelector(".showGameResult")
 let result = document.querySelector('.result');
-let showCount = document.querySelector(".showCount");
 let randomImg = [
     "project_imgs/apple.jpg",
     "project_imgs/cherries.webp",
@@ -14,83 +14,80 @@ let randomImg = [
     "project_imgs/orange.jpg",
     "project_imgs/raspberry-2635886_1280.jpg",
 ];
-let actualImage = [...randomImg, ...randomImg]
-let countImg = 0;
-let timer = 60;
-let imgStoreArry = [];
+let actualImage = [...randomImg, ...randomImg];
 let tempArry = [];
+let imgStoreArry = [];
+let countFllipedImg = 0;
+let timer = 60;
 let match = 0;
-let attempts = 0;
 addImage();
-startTime();
 
-game_btn.addEventListener("click", () => {
+
+
+
+gameBtn.addEventListener('click', () => {
     main_box.style.display = "flex";
-    game_btn.style.display = "none"
+    gameBtn.style.display = 'none';
+    showGameResult.style.display = "block"
+    startTime();
+
+
 });
 
+function randomvalue() {
+    let randomItem = Math.floor(Math.random() * actualImage.length);
+    if (tempArry.includes(randomItem)) {
+        return randomvalue();
+    } else {
+        tempArry.push(randomItem);
+        return randomItem;
+    }
+};
 
 function addImage() {
     for (let i = 0; i < actualImage.length; i++) {
         let image = document.createElement("img");
         image.src = actualImage[randomvalue()];
         card_back[i].append(image);
-        console.log(card_back)
     }
 };
 
 flipCard.forEach((suffle) => {
     suffle.addEventListener("click", () => {
-        countImg++;
+        countFllipedImg++;
         suffle.children[0].classList.add("cardBackSide");
-        imgStoreArry.push(suffle.children[0].children[1].children[0])
-
-        if (countImg === 2) {
-            attempts++;
-            showCount.innerHTML = `Attempts: ${attempts} | Matches: ${match}`;
-
-
+        imgStoreArry.push(suffle.children[0].children[1].children[0]);
+        if (countFllipedImg === 2) {
             if (imgStoreArry[0].src === imgStoreArry[1].src) {
-                imgStoreArry.length = 0;
-                countImg = 0;
-                match++
-                showCount.innerHTML = `Attempts: ${attempts} | Matches: ${match}`;
-            }
-            else {
+                imgStoreArry = [];
+                countFllipedImg = 0;
+                match++;
+                showCount.innerHTML = `match : ${match}`;
+            } else {
                 setTimeout(() => {
                     imgStoreArry.forEach((img) => {
                         img.parentElement.parentElement.classList.remove("cardBackSide");
-                    });
-                    imgStoreArry.length = 0
-                    countImg = 0
+                    })
+                    imgStoreArry = [];
+                    countFllipedImg = 0;
                 }, 1000)
             }
         }
-    })
-
+    });
 });
-
-
-function randomvalue() {
-    let randomItem = Math.floor(Math.random() * actualImage.length);
-    if (tempArry.includes(randomItem)) { return randomvalue() }
-    else {
-        tempArry.push(randomItem);
-        return randomItem;
-    }
-};
-
 
 
 function startTime() {
     let interval = setInterval(() => {
         showTime.innerHTML = --timer;
-        if (timer === 0) {
+
+        if (timer === 0 || match === 6) {
             main_box.style.display = "none";
-            result.style.display = "block"
+            result.style.display = "block";
+            showGameResult.style.display = "none";
             clearInterval(interval);
         }
     }, 1000)
-}
+};
 
 
